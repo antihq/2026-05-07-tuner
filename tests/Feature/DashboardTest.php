@@ -164,6 +164,59 @@ test('dashboard recent events show user id', function () {
     $response->assertSee('Anonymous');
 });
 
+test('dashboard system health last event project is null when no events', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    Livewire::test('pages::dashboard')
+        ->assertSet('systemHealth.last_event_project', null);
+});
+
+test('dashboard system health last event project differs from most active project', function () {
+    $user = User::factory()->create();
+    $projectA = $user->currentTeam->projects()->create(['name' => 'Active']);
+    $projectB = $user->currentTeam->projects()->create(['name' => 'Quiet']);
+    $channelA = $projectA->channels()->create(['name' => 'Events', 'url_key' => 'key_active']);
+    $channelB = $projectB->channels()->create(['name' => 'Events', 'url_key' => 'key_quiet']);
+
+    $event1 = $channelA->events()->create(['title' => 'Event 1']);
+    $event1->created_at = now()->subHour();
+    $event1->save();
+    $event2 = $channelA->events()->create(['title' => 'Event 2']);
+    $event2->created_at = now()->subHour();
+    $event2->save();
+    $channelB->events()->create(['title' => 'Latest Event']);
+
+    $this->actingAs($user);
+
+    Livewire::test('pages::dashboard')
+        ->assertSet('systemHealth.most_active_project', function ($project) use ($projectA) {
+            expect($project['id'])->toBe($projectA->id);
+
+            return true;
+        })
+        ->assertSet('systemHealth.last_event_project', function ($project) use ($projectB) {
+            expect($project)->not->toBeNull();
+            expect($project['id'])->toBe($projectB->id);
+
+            return true;
+        });
+});
+
+test('dashboard system health last event project is scoped to current team', function () {
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $otherProject = $otherUser->currentTeam->projects()->create(['name' => 'Other Project']);
+    $otherChannel = $otherProject->channels()->create(['name' => 'Events', 'url_key' => 'key_other']);
+    $otherChannel->events()->create(['title' => 'Other Team Event']);
+
+    $this->actingAs($user);
+
+    Livewire::test('pages::dashboard')
+        ->assertSet('systemHealth.last_event_project', null);
+});
+
 test('dashboard system health links to most active project', function () {
     $user = User::factory()->create();
     $projectA = $user->currentTeam->projects()->create(['name' => 'Active']);

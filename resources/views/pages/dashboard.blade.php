@@ -57,6 +57,7 @@ new #[Title('Dashboard')] class extends Component
         $projects = collect($this->projectBreakdown);
 
         $lastEvent = Event::whereHas('channel.project', fn ($q) => $q->where('team_id', Auth::user()->currentTeam->id))
+            ->with('channel')
             ->latest()
             ->first();
 
@@ -64,6 +65,7 @@ new #[Title('Dashboard')] class extends Component
             'events_last_24h' => $projects->sum('events_last_24h'),
             'last_event_at' => $lastEvent?->created_at,
             'last_event_id' => $lastEvent?->id,
+            'last_event_project' => $lastEvent ? $projects->first(fn ($p) => $p['id'] === $lastEvent->channel->project_id) : null,
             'most_active_project' => $projects->sortByDesc('events_last_24h')->first(),
         ];
     }
