@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: Inter, sans-serif;
+}
+
+@theme {
+    --color-accent: var(--color-blue-600);
+    --color-accent-content: var(--color-blue-600);
+    --color-accent-foreground: var(--color-white);
+}
+@layer theme {
+    .dark {
+        --color-accent: var(--color-blue-600);
+        --color-accent-content: var(--color-blue-600);
+        --color-accent-foreground: var(--color-white);
+    }
+}
