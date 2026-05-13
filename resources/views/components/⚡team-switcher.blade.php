@@ -81,6 +81,7 @@ new class extends Component {
 
 <flux:dropdown data-test="team-switcher">
     <button class="h-11 sm:h-9 relative flex items-center gap-3 rounded-lg w-full px-2 py-0 text-start font-medium text-zinc-950 dark:text-white hover:text-zinc-950 dark:hover:text-white dark:hover:bg-white/5 hover:bg-zinc-950/5">
+        <flux:avatar src="https://avatars.laravel.cloud/team-{{ Auth::user()->currentTeam?->id }}" class="size-7! sm:size-6!" circle />
         <span class="flex-1 text-base/6 sm:text-sm/5 truncate">{{ Auth::user()->currentTeam?->name }}</span>
         <flux:icon icon="chevron-down" variant="micro" class="size-5 sm:size-4 text-zinc-500 dark:text-zinc-400" />
     </button>
