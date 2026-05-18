@@ -90,7 +90,6 @@ new #[Title('Enable authenticator')] class extends Component {
                 copyable
                 icon="key"
                 label="Manual setup key"
-                class="max-w-lg"
                 input:class="font-mono"
             />
         </div>

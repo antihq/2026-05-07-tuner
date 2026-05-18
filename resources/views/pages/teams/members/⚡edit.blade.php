@@ -67,15 +67,15 @@ new class extends Component
 <section class="w-full">
     <flux:heading size="xl" level="1">Edit member</flux:heading>
 
-    <form wire:submit="updateRole" class="mt-6 space-y-8">
+    <form wire:submit="updateRole" class="mt-6 space-y-8 max-w-xl">
         <flux:field>
             <flux:label>Email address</flux:label>
-            <flux:input readonly variant="filled" :value="$userModel->email" class="max-w-lg" />
+            <flux:input readonly variant="filled" :value="$userModel->email" />
         </flux:field>
 
         <flux:field>
             <flux:label>Role</flux:label>
-            <flux:select wire:model="selectedRole" class="max-w-lg" data-test="member-role-select">
+            <flux:select wire:model="selectedRole" data-test="member-role-select">
                 @foreach ($availableRoles as $role)
                     <flux:select.option value="{{ $role['value'] }}">{{ $role['label'] }}</flux:select.option>
                 @endforeach

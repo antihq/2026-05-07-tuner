@@ -32,7 +32,7 @@ $containerClasses = Flux::classes()
     {{ $footer ?? '' }}
 
     <?php if ($paginate): ?>
-        <?php $paginationAttributes = Flux::attributesAfter('pagination:', $attributes, ['paginator' => $paginate, 'class' => 'shrink-0']); ?>
+        <?php $paginationAttributes = Flux::attributesAfter('pagination:', $attributes, ['paginator' => $paginate, 'class' => 'shrink-0 max-lg:px-6']); ?>
         <flux:pagination :attributes="$paginationAttributes" />
     <?php endif; ?>
 </div>

@@ -74,10 +74,10 @@ new #[Title('Delete team')] class extends Component
     <flux:heading size="xl" level="1">Delete team</flux:heading>
 
     @if ($this->permissions->canDeleteTeam && ! $teamModel->is_personal)
-        <form wire:submit="deleteTeam" class="mt-6 space-y-8">
+        <form wire:submit="deleteTeam" class="mt-6 space-y-8 max-w-xl">
             <flux:field>
                 <flux:label>Type "{{ $teamModel->name }}" to confirm</flux:label>
-                <flux:input wire:model="deleteTeamName" type="text" required class="max-w-lg" data-test="delete-team-name" />
+                <flux:input wire:model="deleteTeamName" type="text" required data-test="delete-team-name" />
                 <flux:error name="deleteTeamName" />
             </flux:field>
 

@@ -10,7 +10,7 @@
     'tooltipPosition' => 'right',
     'tooltipKbd' => null,
     'tooltip' => null,
-    'iconVariant' => 'outline',
+    'iconVariant' => 'solid',
     'iconTrailing' => null,
     'badgeColor' => null,
     'iconDot' => null,
@@ -24,8 +24,10 @@ $tooltip ??= $slot->isNotEmpty() ? (string) $slot : null;
 
 // Size-up icons in square/icon-only buttons...
 $iconClasses = Flux::classes('size-6 sm:size-5')
+    ->add('text-zinc-500 dark:text-zinc-400')
     ->add('in-data-flux-sidebar-group-dropdown:text-zinc-400! dark:in-data-flux-sidebar-group-dropdown:text-white/80!')
-    ->add('[[data-flux-sidebar-item]:hover_&]:text-current!');
+    ->add('[[data-flux-sidebar-item]:hover_&]:text-current!')
+    ->add('[[data-flux-sidebar-item][data-current]_&]:text-zinc-950! dark:[[data-flux-sidebar-item][data-current]_&]:text-white!');
 
 $classes = Flux::classes()
     ->add('h-11 sm:h-9 relative flex items-center gap-3 rounded-lg')

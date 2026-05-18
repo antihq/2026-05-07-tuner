@@ -1,3 +1,5 @@
+@blaze
+
 <dt
     {{ $attributes->except('class') }}
     @class([

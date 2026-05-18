@@ -38,10 +38,10 @@ new #[Title('Delete account')] class extends Component
         <flux:heading size="xl" level="1">Delete account</flux:heading>
 
         @if ($this->showDeleteUser)
-            <form wire:submit="deleteUser" class="mt-6 space-y-8">
+            <form wire:submit="deleteUser" class="mt-6 space-y-8 max-w-xl">
                 <flux:field>
                     <flux:label>Password</flux:label>
-                    <flux:input wire:model="password" type="password" required viewable class="max-w-lg" />
+                    <flux:input wire:model="password" type="password" required viewable />
                     <flux:error name="password" />
                 </flux:field>
 

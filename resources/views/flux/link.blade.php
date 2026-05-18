@@ -3,7 +3,7 @@
 @props([
     'as' => null,
     'external' => null,
-    'accent' => true,
+    'accent' => false,
     'variant' => null,
     'strong' => false,
 ])

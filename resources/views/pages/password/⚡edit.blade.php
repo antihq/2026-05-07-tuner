@@ -54,14 +54,14 @@ new #[Title('Password')] class extends Component
 
 <section class="w-full">
     <flux:heading size="xl" level="1">Password</flux:heading>
-    <form wire:submit="updatePassword" class="mt-6 space-y-8">
+    <form wire:submit="updatePassword" class="mt-6 space-y-8 max-w-xl">
         <flux:field>
             <flux:label>Current password</flux:label>
-            <flux:input wire:model="current_password" type="password" required autocomplete="current-password" viewable class="max-w-lg" />
+            <flux:input wire:model="current_password" type="password" required autocomplete="current-password" viewable />
             <flux:error name="current_password" />
         </flux:field>
 
-        <flux:field class="max-w-lg">
+        <flux:field>
             <flux:label>New password</flux:label>
             <flux:input wire:model="password" type="password" required autocomplete="new-password" viewable />
             <flux:error name="password" />
@@ -72,7 +72,7 @@ new #[Title('Password')] class extends Component
 
         <flux:field>
             <flux:label>Confirm password</flux:label>
-            <flux:input wire:model="password_confirmation" type="password" required autocomplete="new-password" viewable class="max-w-lg" />
+            <flux:input wire:model="password_confirmation" type="password" required autocomplete="new-password" viewable />
             <flux:error name="password_confirmation" />
         </flux:field>
 

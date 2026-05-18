@@ -194,10 +194,10 @@ new #[Title('Project')] class extends Component
 
     <flux:heading class="mt-12">Delete project</flux:heading>
 
-    <form wire:submit="deleteProject" class="mt-4 space-y-5">
+    <form wire:submit="deleteProject" class="mt-4 space-y-5 max-w-xl">
         <flux:field>
             <flux:label>Type "{{ $this->project->name }}" to confirm</flux:label>
-            <flux:input wire:model="deleteProjectName" type="text" required class="max-w-lg" />
+            <flux:input wire:model="deleteProjectName" type="text" required />
             <flux:error name="deleteProjectName" />
         </flux:field>
 

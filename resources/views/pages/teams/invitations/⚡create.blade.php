@@ -65,16 +65,16 @@ new class extends Component {
 <section class="w-full">
     <flux:heading size="xl" level="1">Invite team member</flux:heading>
 
-    <form wire:submit="createInvitation" class="mt-6 space-y-8">
+    <form wire:submit="createInvitation" class="mt-6 space-y-8 max-w-xl">
         <flux:field>
             <flux:label>Email address</flux:label>
-            <flux:input wire:model="inviteEmail" type="email" required autofocus autocomplete="email" class="max-w-lg" data-test="invite-email" />
+            <flux:input wire:model="inviteEmail" type="email" required autofocus autocomplete="email" data-test="invite-email" />
             <flux:error name="inviteEmail" />
         </flux:field>
 
         <flux:field>
             <flux:label>Role</flux:label>
-            <flux:select wire:model="inviteRole" class="max-w-lg" data-test="invite-role">
+            <flux:select wire:model="inviteRole" data-test="invite-role">
                 @foreach ($this->availableRoles as $role)
                     <flux:select.option value="{{ $role['value'] }}">{{ $role['label'] }}</flux:select.option>
                 @endforeach

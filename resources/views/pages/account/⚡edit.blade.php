@@ -64,16 +64,16 @@ new #[Title('Edit account')] class extends Component
 <section class="w-full">
     <div>
         <flux:heading size="xl" level="1">Edit account</flux:heading>
-        <form wire:submit="updateProfileInformation" class="mt-6 space-y-8">
+        <form wire:submit="updateProfileInformation" class="mt-6 space-y-8 max-w-xl">
             <flux:field>
                 <flux:label>Name</flux:label>
-                <flux:input wire:model="name" type="text" required autofocus autocomplete="name" class="max-w-lg" />
+                <flux:input wire:model="name" type="text" required autofocus autocomplete="name" />
                 <flux:error name="name" />
             </flux:field>
 
             <flux:field>
                 <flux:label>Email</flux:label>
-                <flux:input wire:model="email" type="email" required autocomplete="email" class="max-w-lg" />
+                <flux:input wire:model="email" type="email" required autocomplete="email" />
                 <flux:error name="email" />
                 <flux:description>Each account requires a unique email address.</flux:description>
 

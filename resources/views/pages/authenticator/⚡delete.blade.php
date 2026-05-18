@@ -38,10 +38,10 @@ new #[Title('Disable authenticator')] class extends Component
 
     <flux:text class="mt-1">This will also delete your recovery codes.</flux:text>
 
-    <form wire:submit="disable" class="mt-6 space-y-8">
+    <form wire:submit="disable" class="mt-6 space-y-8 max-w-xl">
         <flux:field>
             <flux:label>Password</flux:label>
-            <flux:input wire:model="password" type="password" required viewable class="max-w-lg" />
+            <flux:input wire:model="password" type="password" required viewable />
             <flux:error name="password" />
         </flux:field>
 

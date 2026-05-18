@@ -51,10 +51,10 @@ new class extends Component
 <section class="w-full">
     <flux:heading size="xl" level="1">Edit team</flux:heading>
 
-    <form wire:submit="updateTeam" class="mt-6 space-y-8">
+    <form wire:submit="updateTeam" class="mt-6 space-y-8 max-w-xl">
         <flux:field>
             <flux:label>Team name</flux:label>
-            <flux:input wire:model="teamName" type="text" required data-test="team-name-input" class="max-w-lg" />
+            <flux:input wire:model="teamName" type="text" required data-test="team-name-input" />
             <flux:error name="teamName" />
         </flux:field>
 

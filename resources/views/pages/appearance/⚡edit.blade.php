@@ -32,7 +32,7 @@ new #[Title('Appearance')] class extends Component
     <flux:field class="mt-4">
         <flux:label>Theme</flux:label>
         <flux:description>System follows the operating system preference.</flux:description>
-        <flux:radio.group variant="segmented" x-model="$flux.appearance" class="mt-2 max-w-lg">
+        <flux:radio.group variant="segmented" x-model="$flux.appearance" class="mt-2 max-w-xl">
             <flux:radio value="light" icon="sun">Light</flux:radio>
             <flux:radio value="dark" icon="moon">Dark</flux:radio>
             <flux:radio value="system" icon="computer-desktop">System</flux:radio>
