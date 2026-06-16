@@ -1,6 +1,6 @@
 @php
     $suffix = app()->environment('production') ? null : app()->environment();
-    $appName = collect(['AntiKit', $suffix])->filter()->implode(' - ');
+    $appName = collect([config('app.name'), $suffix])->filter()->implode(' - ');
 @endphp
 {
   "name": {!! json_encode($appName) !!},
