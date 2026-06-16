@@ -4,10 +4,11 @@ use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Dashboard')] class extends Component
+new #[Layout('layouts.app'), Title('Dashboard')] class extends Component
 {
     public string $sortField = 'events_count';
 

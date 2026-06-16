@@ -5,10 +5,11 @@ use App\Models\Event;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Channel')] class extends Component
+new #[Layout('layouts.app'), Title('Channel')] class extends Component
 {
     public int $channelId;
 

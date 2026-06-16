@@ -3,10 +3,11 @@
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Event')] class extends Component
+new #[Layout('layouts.app'), Title('Event')] class extends Component
 {
     public int $eventId;
 

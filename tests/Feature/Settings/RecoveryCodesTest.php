@@ -13,33 +13,15 @@ beforeEach(function () {
     ]);
 });
 
-test('recovery codes page can be rendered', function () {
+test('recovery codes are shown when two factor enabled', function () {
     $user = User::factory()->withTwoFactor()->create();
 
-    $this->actingAs($user)
-        ->withSession(['auth.password_confirmed_at' => time()])
-        ->get(route('recovery-codes.show'))
-        ->assertOk()
-        ->assertSee('Recovery codes')
-        ->assertSee('Regenerate codes')
-        ->assertSee('recovery-code-1');
-});
+    $this->actingAs($user);
 
-test('recovery codes page requires password confirmation', function () {
-    $user = User::factory()->withTwoFactor()->create();
+    $component = Livewire::test('pages::settings');
 
-    $this->actingAs($user)
-        ->get(route('recovery-codes.show'))
-        ->assertRedirect(route('password.confirm'));
-});
-
-test('recovery codes page redirects if two factor not enabled', function () {
-    $user = User::factory()->create();
-
-    $this->actingAs($user)
-        ->withSession(['auth.password_confirmed_at' => time()])
-        ->get(route('recovery-codes.show'))
-        ->assertRedirect(route('authenticator.show'));
+    $codes = $component->get('recoveryCodes');
+    expect($codes)->not->toBeEmpty();
 });
 
 test('recovery codes can be regenerated', function () {
@@ -47,7 +29,7 @@ test('recovery codes can be regenerated', function () {
 
     $this->actingAs($user);
 
-    $component = Livewire::test('pages::recovery-codes.show');
+    $component = Livewire::test('pages::settings');
 
     $originalCodes = $component->get('recoveryCodes');
     expect($originalCodes)->not->toBeEmpty();

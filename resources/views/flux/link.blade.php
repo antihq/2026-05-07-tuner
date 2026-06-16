@@ -3,14 +3,14 @@
 @props([
     'as' => null,
     'external' => null,
-    'accent' => false,
+    'accent' => true,
     'variant' => null,
     'strong' => false,
 ])
 
 @php
 $classes = Flux::classes()
-    ->add('inline')
+    ->add('inline lowercase')
     ->add(match ($variant) {
         'ghost' => 'no-underline hover:underline',
         'subtle' => 'no-underline',
@@ -20,7 +20,7 @@ $classes = Flux::classes()
     ->add(match ($variant) {
         'subtle' => 'text-zinc-500 dark:text-white/70 hover:text-zinc-800 dark:hover:text-white',
         default => match ($accent) {
-            true => 'text-[var(--color-accent-content)] decoration-[color-mix(in_oklab,var(--color-accent-content),transparent_80%)]',
+            true => 'text-[var(--color-accent-content)] decoration-[var(--color-accent-content)]/50 hover:decoration-[var(--color-accent-content)]',
             false => 'text-zinc-950 dark:text-white decoration-zinc-950/50 hover:decoration-zinc-950 dark:decoration-white/50 dark:hover:decoration-white',
         },
     })

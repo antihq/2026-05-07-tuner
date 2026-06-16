@@ -13,8 +13,8 @@
 }
 
 @theme {
-    --color-accent: var(--color-zinc-950);
-    --color-accent-content: var(--color-zinc-950);
+    --color-accent: var(--color-blue-600);
+    --color-accent-content: var(--color-blue-600);
     --color-accent-foreground: var(--color-white);
 }
 @layer theme {

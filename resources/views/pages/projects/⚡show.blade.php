@@ -6,10 +6,11 @@ use Carbon\Carbon;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Project')] class extends Component
+new #[Layout('layouts.app'), Title('Project')] class extends Component
 {
     public int $projectId;
 

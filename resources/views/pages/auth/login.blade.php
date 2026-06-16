@@ -1,52 +1,53 @@
-<x-layouts::guest title="Sign in">
-    <section class="w-full">
-        <div class="mx-auto max-w-md">
-            <flux:heading size="xl" level="1">Sign in to your account</flux:heading>
+<x-layouts::auth title="Sign in">
+    <section class="max-w-2xl">
+        <flux:heading level="1" class="lowercase">sign in</flux:heading>
 
-            @if (session('status'))
-                <flux:text color="green" class="mt-4 font-medium">{{ session('status') }}</flux:text>
-            @endif
+        @if (session('status'))
+            <p class="mt-1">{{ session('status') }}</p>
+        @endif
 
-            <form method="POST" action="{{ route('login.store') }}" class="mt-6 space-y-8">
-                @csrf
+        <form method="POST" action="{{ route('login.store') }}" class="mt-2">
+            @csrf
 
-                <flux:field>
-                    <flux:label>Email address</flux:label>
-                    <flux:input
-                        name="email"
-                        :value="old('email')"
-                        type="email"
-                        required
-                        autofocus
-                        autocomplete="email"
-                    />
-                    <flux:error name="email" />
-                </flux:field>
+            <flux:field class="max-w-sm">
+                <flux:label class="lowercase">Email address</flux:label>
+                <flux:input
+                    name="email"
+                    :value="old('email')"
+                    type="email"
+                    required
+                    autofocus
+                    autocomplete="email"
+                />
+                <flux:error name="email" />
+            </flux:field>
 
-                <flux:field>
-                    <flux:label>Password</flux:label>
-                    <flux:input
-                        name="password"
-                        type="password"
-                        required
-                        autocomplete="current-password"
-                        viewable
-                    />
-                    <flux:error name="password" />
-                    @if (Route::has('password.request'))
-                        <flux:text class="mt-3">
-                            <flux:link :href="route('password.request')" :accent="false" wire:navigate>Reset password</flux:link>
-                        </flux:text>
-                    @endif
-                </flux:field>
+            <flux:field class="mt-2 max-w-sm">
+                <flux:label class="lowercase">Password</flux:label>
+                <flux:input
+                    name="password"
+                    type="password"
+                    required
+                    autocomplete="current-password"
+                />
+                <flux:error name="password" />
+            </flux:field>
 
+            <div class="mt-4 flex items-center gap-x-4 lowercase">
                 <flux:checkbox name="remember" label="Remember me" :checked="old('remember')" />
+            </div>
 
-                <flux:button variant="primary" type="submit" data-test="login-button">
+            <div class="mt-4">
+                <flux:button type="submit" variant="primary" color="lime" data-test="login-button" class="lowercase">
                     Sign in
                 </flux:button>
-            </form>
+            </div>
+        </form>
 
+        <div class="mt-2">
+            @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}" class="hover:underline text-blue-700 visited:text-purple-700 dark:text-blue-400 dark:visited:text-purple-400 lowercase" wire:navigate>Reset password</a>
+            @endif
         </div>
     </section>
-</x-layouts::guest>
+</x-layouts::auth>

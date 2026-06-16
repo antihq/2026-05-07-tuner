@@ -2,10 +2,11 @@
 
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Create Project')] class extends Component
+new #[Layout('layouts.app'), Title('Create Project')] class extends Component
 {
     public string $name = '';
 

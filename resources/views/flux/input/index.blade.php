@@ -90,7 +90,7 @@ $inputLoadingClasses = Flux::classes()
     ;
 
 $classes = Flux::classes()
-    ->add('w-full border rounded-lg block disabled:shadow-none dark:shadow-none disabled:opacity-50 dark:disabled:opacity-50')
+    ->add('w-full border block disabled:shadow-none dark:shadow-none disabled:opacity-50 dark:disabled:opacity-50')
     ->add('appearance-none') // Without this, input[type="date"] on mobile doesn't respect w-full...
     ->add(match ($size) {
         default => 'h-11 sm:h-9 text-base/6 sm:text-sm/6',
@@ -121,7 +121,7 @@ $classes = Flux::classes()
     })
     ->add(match ($variant) { // Border...
         'outline' => 'shadow-xs border-zinc-300/80 border-b-zinc-400/60 dark:border-white/10 dark:disabled:border-white/5',
-        'filled'  => 'border-0',
+        'filled'  => 'shadow-xs border-zinc-300/80 border-b-zinc-400/60 dark:border-white/10 dark:disabled:border-white/5',
     })
     ->add(match ($variant) { // Invalid...
         'outline' => 'data-invalid:shadow-none data-invalid:border-red-500 dark:data-invalid:border-red-500 disabled:data-invalid:border-red-500 dark:disabled:data-invalid:border-red-500',

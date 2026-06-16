@@ -1,32 +1,31 @@
-<x-layouts::guest title="Confirm password">
-    <section class="w-full">
-        <div class="mx-auto max-w-md">
-            <flux:heading size="xl" level="1">Confirm password</flux:heading>
+<x-layouts::auth title="Confirm password">
+    <section class="max-w-2xl">
+        <flux:heading level="1" class="lowercase">confirm password</flux:heading>
 
-            @if (session('status'))
-                <flux:text color="green" class="mt-4 font-medium">{{ session('status') }}</flux:text>
-            @endif
+        @if (session('status'))
+            <p class="mt-1">{{ session('status') }}</p>
+        @endif
 
-            <form method="POST" action="{{ route('password.confirm.store') }}" class="mt-4 space-y-5">
-                @csrf
+        <form method="POST" action="{{ route('password.confirm.store') }}" class="mt-2">
+            @csrf
 
-                <flux:field>
-                    <flux:label>Password</flux:label>
-                    <flux:input
-                        name="password"
-                        type="password"
-                        required
-                        autocomplete="current-password"
-                        viewable
-                        autofocus
-                    />
-                    <flux:error name="password" />
-                </flux:field>
+            <flux:field class="max-w-sm">
+                <flux:label class="lowercase">Password</flux:label>
+                <flux:input
+                    name="password"
+                    type="password"
+                    required
+                    autocomplete="current-password"
+                    autofocus
+                />
+                <flux:error name="password" />
+            </flux:field>
 
-                <flux:button variant="primary" type="submit" data-test="confirm-password-button">
+            <div class="mt-4">
+                <flux:button type="submit" variant="primary" color="lime" data-test="confirm-password-button" class="lowercase">
                     Confirm
                 </flux:button>
-            </form>
-        </div>
+            </div>
+        </form>
     </section>
-</x-layouts::guest>
+</x-layouts::auth>

@@ -4,16 +4,15 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
 
-test('password edit page can be rendered', function () {
+test('settings page shows password section', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user)
-        ->get(route('password.edit'))
+        ->get(route('settings'))
         ->assertOk()
         ->assertSee('Current password')
         ->assertSee('New password')
-        ->assertSee('Confirm password')
-        ->assertSee('Save');
+        ->assertSee('Confirm password');
 });
 
 test('password can be updated', function () {
@@ -23,10 +22,10 @@ test('password can be updated', function () {
 
     $this->actingAs($user);
 
-    $response = Livewire::test('pages::password.edit')
-        ->set('current_password', 'password')
-        ->set('password', 'new-password')
-        ->set('password_confirmation', 'new-password')
+    $response = Livewire::test('pages::settings')
+        ->set('passwordForm.current_password', 'password')
+        ->set('passwordForm.password', 'new-password')
+        ->set('passwordForm.password_confirmation', 'new-password')
         ->call('updatePassword');
 
     $response->assertHasNoErrors();
@@ -41,11 +40,11 @@ test('correct password must be provided to update password', function () {
 
     $this->actingAs($user);
 
-    $response = Livewire::test('pages::password.edit')
-        ->set('current_password', 'wrong-password')
-        ->set('password', 'new-password')
-        ->set('password_confirmation', 'new-password')
+    $response = Livewire::test('pages::settings')
+        ->set('passwordForm.current_password', 'wrong-password')
+        ->set('passwordForm.password', 'new-password')
+        ->set('passwordForm.password_confirmation', 'new-password')
         ->call('updatePassword');
 
-    $response->assertHasErrors(['current_password']);
+    $response->assertHasErrors(['passwordForm.current_password']);
 });

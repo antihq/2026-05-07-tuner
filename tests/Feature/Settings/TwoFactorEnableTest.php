@@ -14,69 +14,26 @@ beforeEach(function () {
     ]);
 });
 
-test('authenticator create page can be rendered', function () {
-    $user = User::factory()->create();
-
-    $this->actingAs($user)
-        ->withSession(['auth.password_confirmed_at' => time()])
-        ->get(route('authenticator.create'))
-        ->assertOk()
-        ->assertSee('Enable authenticator')
-        ->assertSee('Step 1')
-        ->assertSee('Manual setup key')
-        ->assertSee('Step 2')
-        ->assertSee('Confirm');
-});
-
-test('authenticator create page requires password confirmation', function () {
-    $user = User::factory()->create();
-
-    $this->actingAs($user)
-        ->get(route('authenticator.create'))
-        ->assertRedirect(route('password.confirm'));
-});
-
-test('authenticator create page redirects if two factor already enabled', function () {
-    $user = User::factory()->withTwoFactor()->create();
-
-    $this->actingAs($user)
-        ->withSession(['auth.password_confirmed_at' => time()])
-        ->get(route('authenticator.create'))
-        ->assertRedirect(route('authenticator.show'));
-});
-
-test('authenticator create enables two factor and shows qr code on mount', function () {
+test('two factor confirmation fails with invalid code', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user);
 
-    $component = Livewire::test('pages::authenticator.create');
-
-    $component->assertSet('requiresConfirmation', true)
-        ->assertSet('qrCodeSvg', fn ($svg) => str_contains($svg, '<svg'))
-        ->assertSet('manualSetupKey', fn ($key) => filled($key));
-
-    expect($user->fresh()->two_factor_secret)->not->toBeNull();
-});
-
-test('authenticator confirmation fails with invalid code', function () {
-    $user = User::factory()->create();
-
-    $this->actingAs($user);
-
-    $component = Livewire::test('pages::authenticator.create')
+    $component = Livewire::test('pages::settings')
+        ->call('enableTwoFactor')
         ->set('code', '000000')
         ->call('confirmTwoFactor');
 
     $component->assertHasErrors(['code']);
 });
 
-test('authenticator confirmation succeeds with valid code', function () {
+test('two factor confirmation succeeds with valid code', function () {
     $user = User::factory()->create();
 
     $this->actingAs($user);
 
-    Livewire::test('pages::authenticator.create');
+    $component = Livewire::test('pages::settings')
+        ->call('enableTwoFactor');
 
     $user->refresh();
     $secret = decrypt($user->two_factor_secret);
@@ -84,17 +41,32 @@ test('authenticator confirmation succeeds with valid code', function () {
     $totp = (new Google2FA);
     $validCode = $totp->getCurrentOtp($secret);
 
-    $component = Livewire::test('pages::authenticator.create')
+    $component
         ->set('code', $validCode)
         ->call('confirmTwoFactor');
 
     $component->assertHasNoErrors()
-        ->assertRedirect(route('authenticator.show'));
+        ->assertSet('twoFactorEnabled', true)
+        ->assertSet('showQrCode', false);
 
     expect($user->fresh()->two_factor_confirmed_at)->not->toBeNull();
 });
 
-test('authenticator create page without confirmation shows enable button', function () {
+test('two factor setup can be cancelled', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user);
+
+    $component = Livewire::test('pages::settings')
+        ->call('enableTwoFactor')
+        ->call('cancelTwoFactorSetup');
+
+    $component->assertSet('showQrCode', false);
+
+    expect($user->fresh()->two_factor_secret)->toBeNull();
+});
+
+test('two factor enable without confirmation shows enable button', function () {
     Features::twoFactorAuthentication([
         'confirm' => false,
         'confirmPassword' => true,
@@ -102,10 +74,11 @@ test('authenticator create page without confirmation shows enable button', funct
 
     $user = User::factory()->create();
 
-    $this->actingAs($user)
-        ->withSession(['auth.password_confirmed_at' => time()])
-        ->get(route('authenticator.create'))
-        ->assertOk()
-        ->assertSee('Enable')
+    $this->actingAs($user);
+
+    $component = Livewire::test('pages::settings')
+        ->call('enableTwoFactor');
+
+    $component->assertSee('Enable')
         ->assertDontSee('Step 2');
 });
